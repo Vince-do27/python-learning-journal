@@ -9,4 +9,3 @@ Be able to apply advanced Python data structure methods and machine learning con
 
 **## My First Python Program**<br />
 >print("Hello, World!")
-

@@ -1,9 +1,11 @@
+'''
 **Object Orientated Program**
 
 **Classes**
 
 **Basic Pokemon Game OOP Exercise**<br />
-```
+'''
+
 class Pokemon:
   def __init__(self, name, pokemon_type, hp, damage):
         self.name = name
@@ -27,4 +29,4 @@ bulbasaur = Pokemon("Bulbasaur", "Grass", 45, 8)
 print(pikachu)  # Output: Pikachu (Electric) - HP: 35, Damage: 10
 print(bulbasaur.attack(pikachu))  # Output: Bulbasaur attacks Pikachu for 8 damage!
 print(f"Pikachu's HP: {pikachu.hp}")  # Output: Pikachu's HP: 27
-```
+
