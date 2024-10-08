@@ -9,8 +9,8 @@ class Card:
         self.damage = damage  # Damage caused by the card
         self.heal = heal  # Health restored by the card
 
+    #Plays the card, applying its effect to the player or opponent.
     def play(self, player, opponent):
-        """Plays the card, applying its effect to the player or opponent."""
         if self.effect == "heal":
             player.health += self.heal
             print(f"{player.name} used {self.name} and gained {self.heal} health.")
@@ -60,7 +60,7 @@ class LinkedListDeck:
         self.head = self.head.next
         return drawnCard
 
-# represent people 
+# Represent players 
 class Player:
     def __init__(self, name):
         self.name = name  # what player
@@ -103,7 +103,7 @@ class Player:
 class Game:
     log = [] #Log to keep track of all actions taken in the game
 
-    def __init__(self, player1, player2): #player1 and player2 are place holder variables for player class
+    def __init__(self, player1, player2): 
         self.players = [player1, player2]
         self.currentPlayerIndex = 0 #Keeps track of players' turn, 0 represents player1 and 1 represents player2
     
@@ -111,7 +111,7 @@ class Game:
     def start(self):
         for player in self.players:
             for x in range(5):
-                player.drawCard() #Method in Player class
+                player.drawCard() 
 
         while all(player.health > 0 for player in self.players):
             self.turn()
@@ -158,24 +158,28 @@ class Game:
                 # End the card playing phase
                 break
             elif choice.isdigit():
-                card_index = int(choice)
-                card = player.hand[card_index]
+                try:
+                    card_index = int(choice)
+                    card = player.hand[card_index]  # This line could raise an IndexError if the index is invalid
 
-                # Determine if the card is a UnitCard or SpellCard
-                if isinstance(card, UnitCard):
-                    if unitPlayed:
-                        print("You can only play one Unit Card per turn.")
-                    else:
-                        player.playCard(card, opponent)
-                        unitPlayed = True  # Mark that a Unit Card has been played
-                elif isinstance(card, SpellCard):
-                    if spellPlayed:
-                        print("You can only play one Spell Card per turn.")
-                    else:
-                        player.playCard(card, opponent)
-                        spellPlayed = True  # Mark that a Spell Card has been played
+                    # Determine if the card is a UnitCard or SpellCard
+                    if isinstance(card, UnitCard):
+                        if unitPlayed:
+                            print("You can only play one Unit Card per turn.")
+                        else:
+                            player.playCard(card, opponent)
+                            unitPlayed = True  # Mark that a Unit Card has been played
+                    elif isinstance(card, SpellCard):
+                        if spellPlayed:
+                            print("You can only play one Spell Card per turn.")
+                        else:
+                            player.playCard(card, opponent)
+                            spellPlayed = True  # Mark that a Spell Card has been played
+                except IndexError:
+                    print("Invalid card index. Please choose a valid card from your hand.")
             else:
                 print("Invalid choice. Please enter a valid option.")
+
 
     def display_hand(self, player):
         print(f"\n{player.name}'s hand:")
